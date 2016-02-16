@@ -10,8 +10,8 @@ function copyright($default) {
 }
 ?>
 <footer>
-	<div class="container" id="footer">
-		<div class="row text-center">
+	<div class="uk-grid">
+		<div class="uk-width-1-1 uk-text-center uk-text-middle">
 			<p><small>Copyright&copy; <?php copyright(2015); ?> <a href="http://www.astkorea.net" target="_blank">AST Global</a> All rights reserved.</small></p>
 		</div>
 	</div>
