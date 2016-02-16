@@ -2,6 +2,9 @@
 </header>
 
 <main>
-	<div class="container">
+	<div class="uk-grid">
+	  <div class="uk-width-5-6 uk-container-center">
+	    1
+	  </div>
 	</div>
 </main>
