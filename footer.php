@@ -1,16 +1,20 @@
 <!-- Footer -->
-<div class="container" id="footer">
-	<div class="row text-center">
-		<p><small>Copyright&copy; 
-		<?php
-			$year_default = 2015;
-			$year = date("Y");
-			if ($year > $year_default) {
-				echo "$year_default - $year";
-			} else {
-				echo "$year_default";
-			}
-		?> <a href="http://www.astkorea.net" target="_blank">AST Global</a> All rights reserved.</small></p>
+<?php
+function copyright($default) {
+	$current = date("Y");
+	if ($current > $default) {
+		echo "$default&ndash;$current";
+	} else {
+		echo "$default";
+	}
+}
+?>
+<footer>
+	<div class="container" id="footer">
+		<div class="row text-center">
+			<p><small>Copyright&copy; <?php copyright(2015); ?> <a href="http://www.astkorea.net" target="_blank">AST Global</a> All rights reserved.</small></p>
+		</div>
 	</div>
-</div>
+</footer>
 </body>
+</html>
