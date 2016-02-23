@@ -1,5 +1,6 @@
 <?php
-include('header.php');
-include('main.php');
-include('footer.php');
+	$files = ['header', 'main', 'footer'];
+	foreach ($files as $index => $filename) {
+		include_once("$filename" . ".php");
+	}
 ?>
