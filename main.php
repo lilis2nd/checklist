@@ -1,3 +1,6 @@
+<?php
+include 'inc.main.function.php';
+?>
 <header>
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 		<div class="container-fluid">
