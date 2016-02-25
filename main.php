@@ -115,6 +115,20 @@
 							<option>시리즈 합본</option>
 						</select>
 					</div>
+					<!-- 방수 -->
+					<label for="waterproof" class="col-sm-1 control-label">방수</label>
+					<div class="col-sm-3">
+						<div class="radio">
+							<label>
+								<input type="radio" name="waterproof" value="water_yes" />Yes
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="waterproof" value="water_no" />No
+							</label>
+						</div>
+					</div>
 				</div>
 			</fieldset>
 		</form>
