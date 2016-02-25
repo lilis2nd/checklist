@@ -39,8 +39,7 @@ include 'inc.main.function.php';
 					<label for="type" class="col-sm-1 control-label">자재</label>
 					<div class="col-sm-3">
 						<select name="type" id="type" class="form-control">
-							<option>QSG</option>
-							<option>UM</option>
+							<?php selector($type); ?>
 						</select>
 					</div>
 					<!-- OS -->
