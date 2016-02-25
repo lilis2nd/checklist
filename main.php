@@ -1,5 +1,31 @@
 <?php
-include 'inc.main.function.php';
+$type = ['QSG', 'UM'];
+$os = ['Jellybean', 'Kitkat', 'Lollipop', 'Marshmallow'];
+$dest = [
+	['Europe', 'EU', 'CIS'],
+	['Asia', 'MEA', 'SEA', 'SWA', 'IND', 'AUS', 'NZL'],
+	['China', 'CHN', 'CMCC', 'CTC', 'CU'],
+	['Latin', 'LTN', 'Mexico', 'Colombia', 'Argentina']	
+];
+$language = [];
+
+function selector($array) {
+	// 다차원배열이 아닐 경우
+	if (count($array) == count($array, COUNT_RECURSIVE)) {
+		foreach ($array as $key => $value) {
+			echo "<option id='" . mb_strtolower($value) . "'>" . $value . "</option>\r\n";
+		}
+	} else {
+		// 다차원배열일 경우
+		for ($i=0; $i < count($array); $i++) { 
+			echo "<optgroup label=\"".$array[$i][0]."\">\r\n";
+			for ($j=1; $j < count($array[$i]); $j++) {
+				echo "<option id='" . mb_strtolower($array[$i][$j]) . "'>" . $array[$i][$j] . "</option>";
+			}
+			echo "</optgroup>\r\n";
+		}
+	}
+}
 ?>
 <header>
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
@@ -46,10 +72,7 @@ include 'inc.main.function.php';
 					<label for="os" class="col-sm-1 control-label">OS</label>
 					<div class="col-sm-3">
 						<select name="os" id="os" class="form-control">
-							<option>Jellybean</option>
-							<option>Kitkat</option>
-							<option>Lollipop</option>
-							<option>Marshmallow</option>
+							<?php selector($os); ?>
 						</select>
 					</div>
 				</div>
@@ -58,8 +81,7 @@ include 'inc.main.function.php';
 					<label for="dest" class="col-sm-1 control-label">출향지</label>
 					<div class="col-sm-3">
 						<select name="dest" id="dest" class="form-control">
-							<option>EU</option>
-							<option>CIS</option>
+							<?php selector($dest); ?>
 						</select>
 					</div>
 					<!-- 언어 -->
