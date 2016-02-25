@@ -40,6 +40,18 @@
 							<option>UM</option>
 						</select>
 					</div>
+					<!-- OS -->
+					<label for="os" class="col-sm-1 control-label">OS</label>
+					<div class="col-sm-3">
+						<select name="os" id="os" class="form-control">
+							<option>Jellybean</option>
+							<option>Kitkat</option>
+							<option>Lollipop</option>
+							<option>Marshmallow</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group form-group-sm">
 					<!-- 출향지 -->
 					<label for="dest" class="col-sm-1 control-label">출향지</label>
 					<div class="col-sm-3">
@@ -48,8 +60,6 @@
 							<option>CIS</option>
 						</select>
 					</div>
-				</div>
-				<div class="form-group form-group-sm">
 					<!-- 언어 -->
 					<label for="language" class="col-sm-1 control-label">언어</label>
 					<div class="col-sm-3">
@@ -61,11 +71,6 @@
 					<label for="person" class="col-sm-1 control-label">검수자</label>
 					<div class="col-sm-3">
 						<input type="text" name="person" id="person" class="form-control" />
-					</div>
-					<!-- 검수일 -->
-					<label for="date" class="col-sm-1 control-label">검수일</label>
-					<div class="col-sm-3">
-						<input type="date" name="date" id="date" class="form-control" />
 					</div>
 				</div>
 			</fieldset>
