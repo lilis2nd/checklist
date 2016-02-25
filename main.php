@@ -76,7 +76,46 @@
 			</fieldset>
 
 			<fieldset>
-				<legend>세부 항목</legend>
+				<legend>Details</legend>
+				<div class="form-group form-group-sm">
+					<!-- 배터리 -->
+					<label for="battery" class="col-sm-1 control-label">Battery</label>
+					<div class="col-sm-3">
+						<select name="battery" id="battery" class="form-control">
+							<option>분리형</option>
+							<option>일체형</option>
+						</select>
+					</div>
+					<!-- 네트워크 -->
+					<label for="network" class="col-sm-1 control-label">Network</label>
+					<div class="col-sm-3">
+						<select name="network" id="network" class="form-control">
+							<option>3G</option>
+							<option>LTE</option>
+							<option>Wi-Fi</option>
+						</select>
+					</div>
+					<!-- 심카드 -->
+					<label for="sim" class="col-sm-1 control-label">SIM</label>
+					<div class="col-sm-3">
+						<select name="sim" id="sim" class="form-control">
+							<option>SS</option>
+							<option>DS</option>
+							<option>SS/DS</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group form-group-sm">
+					<!-- 합본/책 -->
+					<label for="book" class="col-sm-1 control-label">합본</label>
+					<div class="col-sm-3">
+						<select name="book" id="book" class="form-control">
+							<option>QSG 합본</option>
+							<option>SS/DS 합본</option>
+							<option>시리즈 합본</option>
+						</select>
+					</div>
+				</div>
 			</fieldset>
 		</form>
 	</div>
