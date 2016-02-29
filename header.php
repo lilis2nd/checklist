@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>QC Quality Checklist</title>
-		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../bs/css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/qc.css" rel="stylesheet">
 		<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 		<!--[if lt IE 9]>
