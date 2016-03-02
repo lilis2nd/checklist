@@ -8,7 +8,7 @@ $dest = [
 	['Latin', 'LTN', 'MEX', 'COL', 'ARG']	
 ];
 $language = [
-	['Europe', 'English', "Albanian", "Bulgarian", "Croatian", "Czech", "Danish", "Dutch", "Estonian", "Finnish", "French", "German", "Greek", "Hungarian", "Italian", "Latvian", "Lithuanian", "Macedonian", "Norwegian", "Polish", "Portuguese", "Romanian", "Serbian", "Slovak", "Slovenian", "Spanish", "Swedish", "Kazakh", "Russian", "Ukrainian", "Uzbek"]
+	['Europe', 'English', "Albanian", "Bulgarian", "Croatian", "Czech", "Danish", "Dutch", "Estonian", "Finnish", "French", "German", "Greek", "Hungarian", "Italian", "Latvian", "Lithuanian", "Macedonian", "Norwegian", "Polish", "Portuguese", "Romanian", "Serbian", "Slovak", "Slovenian", "Spanish", "Swedish", "Kazakh", "Russian", "Ukrainian", "Uzbek"],
 	['Asia', 'English'],
 	['China', 'English'],
 	['Latin', 'English']
