@@ -8,7 +8,7 @@ $dest = [
 	['Europe', 'EU', 'CIS'],
 	['Asia', 'MEA', 'SEA', 'SWA', 'IND', 'AUS', 'NZL'],
 	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TC'],
-	['Latin', 'LTN', 'MEX', 'COL', 'ARG']	
+	['Latin', 'LTN', 'MEX', 'COL', 'ARG']
 ];
 $language = ['English', 'Albanian', 'Arabic', 'Bulgarian', 'Chinese', 'Croatian', 'Czech', 'Danish', 'Dutch', 'Estonian', 'Farsi', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hungarian', 'Indonesian', 'Italian', 'Latvian', 'Lithuanian', 'Macedonian', 'Norwegian', 'Polish', 'Portuguese', 'Romanian', 'Serbian', 'Slovak', 'Slovenian', 'Spanish', 'Swedish', 'Thai', 'Turkish', 'Kazakh', 'Russian', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese'];
 
@@ -20,7 +20,7 @@ function selector($array) {
 		}
 	} else {
 		// 다차원배열일 경우
-		for ($i=0; $i < count($array); $i++) { 
+		for ($i=0; $i < count($array); $i++) {
 			echo "<optgroup label=\"".$array[$i][0]."\">\r\n";
 			for ($j=1; $j < count($array[$i]); $j++) {
 				echo "<option id='" . mb_strtolower($array[$i][$j]) . "'>" . $array[$i][$j] . "</option>";
@@ -134,7 +134,9 @@ function selector($array) {
 			</fieldset>
 			<div class="row">
 				<div class="col-sm-12">
-					<button type="submit" class="btn btn-default">체크리스트 불러오기</button>
+					<div class="center-block">
+						<button type="submit" class="btn btn-primary btn-sm">체크리스트 불러오기</button>
+					</div>
 				</div>
 			</div>
 		</form>
