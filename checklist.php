@@ -36,8 +36,8 @@ function info($var) {
 							<dd><?php info($type); ?> / <?php info($os); ?></dd>
 							<dt>언어</dt>
 							<dd><?php info($language); ?></dd>
-							<dt>검수자 / 검수일</dt>
-							<dd><?php info($person); ?> / <?php info($date); ?></dd>
+							<dt>검수자 (검수일)</dt>
+							<dd><?php info($person); ?> (<?php info($date); ?>)</dd>
 						</dl>
 					</div>
 				</div>
