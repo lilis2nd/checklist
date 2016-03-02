@@ -55,7 +55,7 @@ function selector($array) {
 
 <main>
 	<div class="container">
-		<form class="form-horizontal" action="checklist.php" method="post">
+		<form class="form-horizontal" action="check.php" method="post">
 			<fieldset>
 				<legend>Basic information</legend>
 				<div class="form-group form-group-sm">
@@ -146,10 +146,10 @@ function selector($array) {
 					<label for="waterproof" class="col-sm-1 control-label">방수</label>
 					<div class="col-sm-3">
 						<label class="radio-inline">
-							<input type="radio" name="waterproof" value="water_yes" />Yes
+							<input type="radio" name="waterproof" value="yes" />Yes
 						</label>
 						<label class="radio-inline">
-							<input type="radio" name="waterproof" value="water_no" />No
+							<input type="radio" name="waterproof" value="no" />No
 						</label>
 					</div>
 				</div>
