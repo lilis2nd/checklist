@@ -30,29 +30,6 @@ function selector($array) {
 	}
 }
 ?>
-<header>
-	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-				<a class="navbar-brand"><b>Quality Checklist</b></a>
-			</div>
-
-			<div class="collapse navbar-collapse" id="menu">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="./">품질검수</a></li>
-					<li><a href="#">검수이력</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</header>
-
 <main>
 	<div class="container">
 		<form class="form-horizontal" action="check.php" method="post">
@@ -109,26 +86,26 @@ function selector($array) {
 					<label for="battery" class="col-sm-1 control-label">Battery</label>
 					<div class="col-sm-3">
 						<select name="battery" id="battery" class="form-control">
-							<option>분리형</option>
-							<option>일체형</option>
+							<option value="sep">분리형</option>
+							<option value="uni">일체형</option>
 						</select>
 					</div>
 					<!-- 네트워크 -->
 					<label for="network" class="col-sm-1 control-label">Network</label>
 					<div class="col-sm-3">
 						<select name="network" id="network" class="form-control">
-							<option>3G</option>
-							<option>LTE</option>
-							<option>Wi-Fi</option>
+							<option value="3g">3G</option>
+							<option value="lte">LTE</option>
+							<option value="wifi">Wi-Fi</option>
 						</select>
 					</div>
 					<!-- 심카드 -->
 					<label for="sim" class="col-sm-1 control-label">SIM</label>
 					<div class="col-sm-3">
 						<select name="sim" id="sim" class="form-control">
-							<option>SS</option>
-							<option>DS</option>
-							<option>SS/DS</option>
+							<option value="ss">SS</option>
+							<option value="ds">DS</option>
+							<option value="ssds">SS/DS</option>
 						</select>
 					</div>
 				</div>
@@ -137,9 +114,10 @@ function selector($array) {
 					<label for="book" class="col-sm-1 control-label">합본</label>
 					<div class="col-sm-3">
 						<select name="book" id="book" class="form-control">
-							<option>QSG 합본</option>
-							<option>SS/DS 합본</option>
-							<option>시리즈 합본</option>
+							<option value="na">N/A</option>
+							<option value="qsg">QSG 합본</option>
+							<option value="sim">SS/DS 합본</option>
+							<option value="series">시리즈 합본</option>
 						</select>
 					</div>
 					<!-- 방수 -->
