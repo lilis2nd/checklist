@@ -7,12 +7,8 @@ $dest = [
 	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TC'],
 	['Latin', 'LTN', 'MEX', 'COL', 'ARG']	
 ];
-<<<<<<< HEAD
-$language = ['English',
-=======
 $language = [
 	'English',
->>>>>>> master
 	'Albanian',
 	'Arabic',
  	'Bulgarian',
