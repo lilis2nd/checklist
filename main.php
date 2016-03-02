@@ -55,7 +55,7 @@ function selector($array) {
 
 <main>
 	<div class="container">
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="checklist.php" method="post">
 			<fieldset>
 				<legend>Basic information</legend>
 				<div class="form-group form-group-sm">
@@ -154,6 +154,11 @@ function selector($array) {
 					</div>
 				</div>
 			</fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<button type="submit" class="btn btn-default" />
+				</div>
+			</div>
 		</form>
 	</div>
 </main>
