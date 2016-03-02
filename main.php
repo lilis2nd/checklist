@@ -8,35 +8,10 @@ $dest = [
 	['Latin', 'LTN', 'Mexico', 'Colombia', 'Argentina']	
 ];
 $language = [
-	"Albanian",
- 	"Bulgarian",
- 	"Croatian",
- 	"Czech",
- 	"Danish",
- 	"Dutch",
- 	"Estonian",
- 	"Finnish",
- 	"French",
- 	"German",
- 	"Greek",
- 	"Hungarian",
- 	"Italian",
- 	"Latvian",
- 	"Lithuanian",
- 	"Macedonian",
- 	"Norwegian",
- 	"Polish",
- 	"Portuguese",
- 	"Romanian",
- 	"Serbian",
- 	"Slovak",
- 	"Slovenian",
- 	"Spanish",
- 	"Swedish",
- 	"Kazakh",
- 	"Russian",
- 	"Ukrainian",
- 	"Uzbek"
+	['Europe', "Albanian", "Bulgarian", "Croatian", "Czech", "Danish", "Dutch", "Estonian", "Finnish", "French", "German", "Greek", "Hungarian", "Italian", "Latvian", "Lithuanian", "Macedonian", "Norwegian", "Polish", "Portuguese", "Romanian", "Serbian", "Slovak", "Slovenian", "Spanish", "Swedish", "Kazakh", "Russian", "Ukrainian", "Uzbek"]
+	['Asia'],
+	['China'],
+	['Latin']
 ];
 
 function selector($array) {
@@ -118,7 +93,7 @@ function selector($array) {
 					<label for="language" class="col-sm-1 control-label">언어</label>
 					<div class="col-sm-3">
 						<select name="language" id="language" class="form-control">
-							<option>English</option>
+							<option><?php selector($language); ?></option>
 						</select>
 					</div>
 					<!-- 검수자 -->
