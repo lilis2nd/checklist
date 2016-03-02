@@ -5,13 +5,13 @@ $dest = [
 	['Europe', 'EU', 'CIS'],
 	['Asia', 'MEA', 'SEA', 'SWA', 'IND', 'AUS', 'NZL'],
 	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TC'],
-	['Latin', 'LTN', 'Mexico', 'Colombia', 'Argentina']	
+	['Latin', 'LTN', 'MEX', 'COL', 'ARG']	
 ];
 $language = [
-	['Europe', "Albanian", "Bulgarian", "Croatian", "Czech", "Danish", "Dutch", "Estonian", "Finnish", "French", "German", "Greek", "Hungarian", "Italian", "Latvian", "Lithuanian", "Macedonian", "Norwegian", "Polish", "Portuguese", "Romanian", "Serbian", "Slovak", "Slovenian", "Spanish", "Swedish", "Kazakh", "Russian", "Ukrainian", "Uzbek"]
-	['Asia'],
-	['China'],
-	['Latin']
+	['Europe', 'English', "Albanian", "Bulgarian", "Croatian", "Czech", "Danish", "Dutch", "Estonian", "Finnish", "French", "German", "Greek", "Hungarian", "Italian", "Latvian", "Lithuanian", "Macedonian", "Norwegian", "Polish", "Portuguese", "Romanian", "Serbian", "Slovak", "Slovenian", "Spanish", "Swedish", "Kazakh", "Russian", "Ukrainian", "Uzbek"]
+	['Asia', 'English'],
+	['China', 'English'],
+	['Latin', 'English']
 ];
 
 function selector($array) {
