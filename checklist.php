@@ -62,6 +62,24 @@ function info($var) {
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-condensed" id="chkTable">
+						<thead>
+							<tr>
+								<th>No.</th>
+								<th>구분#1</th>
+								<th>구분#2</th>
+								<th>검수 사항</th>
+								<th>결과</th>
+								<th>비고</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
 				<pre class="pre-scrollable">
 				<?php
 				var_dump($_POST);
