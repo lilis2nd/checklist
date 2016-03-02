@@ -1,5 +1,5 @@
 <?php
-	$files = ['header', 'main', 'footer'];
+	$files = ['header', 'footer'];
 	foreach ($files as $index => $filename) {
 		include_once("$filename" . ".php");
 	}

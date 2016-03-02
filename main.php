@@ -156,7 +156,7 @@ function selector($array) {
 			</fieldset>
 			<div class="row">
 				<div class="col-sm-12">
-					<button type="submit" class="btn btn-default" />
+					<button type="submit" class="btn btn-default">체크리스트 불러오기</button>
 				</div>
 			</div>
 		</form>
