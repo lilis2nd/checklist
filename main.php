@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 $type = ['QSG', 'UM'];
 $os = ['Jellybean', 'Kitkat', 'Lollipop', 'Marshmallow'];
 $dest = [
