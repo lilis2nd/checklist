@@ -14,7 +14,7 @@
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="./">품질검수</a></li>
-					<li><a href="#">검수이력</a></li>
+					<li><a href="history.php">검수이력</a></li>
 				</ul>
 			</div>
 		</div>
