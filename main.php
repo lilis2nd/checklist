@@ -12,8 +12,6 @@ $dest = [
 ];
 $language = ['English', 'Albanian', 'Arabic', 'Bulgarian', 'Chinese', 'Croatian', 'Czech', 'Danish', 'Dutch', 'Estonian', 'Farsi', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hungarian', 'Indonesian', 'Italian', 'Latvian', 'Lithuanian', 'Macedonian', 'Norwegian', 'Polish', 'Portuguese', 'Romanian', 'Serbian', 'Slovak', 'Slovenian', 'Spanish', 'Swedish', 'Thai', 'Turkish', 'Kazakh', 'Russian', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese'];
 
-var_dump($language);
-
 function selector($array) {
 	// 다차원배열이 아닐 경우
 	if (count($array) == count($array, COUNT_RECURSIVE)) {
