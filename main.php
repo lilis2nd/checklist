@@ -7,8 +7,7 @@ $dest = [
 	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TC'],
 	['Latin', 'LTN', 'MEX', 'COL', 'ARG']	
 ];
-$language = [
-	'English',
+$language = ['English',
 	'Albanian',
 	'Arabic',
  	'Bulgarian',
