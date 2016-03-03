@@ -1,5 +1,6 @@
 <?php
 // Variables - Basic
+
 $model			=	$_POST['model'];
 $type				=	$_POST['type'];
 $os					=	$_POST['os'];
@@ -13,7 +14,9 @@ $battery		=	$_POST['battery'];
 $network		=	$_POST['network'];
 $sim				=	$_POST['sim'];
 $book				=	$_POST['book'];
-$waterproof	=	$_POST['waterproof'];
+if (isset($_POST['waterproof'])) {
+	$waterproof	=	$_POST['waterproof'];
+}
 
 function info($var) {
 	echo $var;
@@ -70,10 +73,31 @@ function info($var) {
 								<th>구분#1</th>
 								<th>구분#2</th>
 								<th>검수 사항</th>
-								<th>결과</th>
+								<th>확인</th>
 								<th>비고</th>
+								<th>위키</th>
 							</tr>
 						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>EU</td>
+								<td>Spanish</td>
+								<td>정부 승인 문구가 적용되었는가?</td>
+								<td></td>
+								<td></td>
+								<td><a href="http://10.10.10.9/wiki/M3:PM/%EB%8B%A4%EA%B5%AD%EC%96%B4%EC%82%AC%EC%96%91/EU/Spanish#.EC.A0.95.EB.B6.80_.EC.8A.B9.EC.9D.B8_.EB.AC.B8.EA.B5.AC_.EC.A0.81.EC.9A.A9" target="_blank">보기</a></td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>EU</td>
+								<td>Spanish</td>
+								<td>정부 승인 문구가 적용되었는가?</td>
+								<td></td>
+								<td></td>
+								<td><a href="http://10.10.10.9/wiki/M3:PM/%EB%8B%A4%EA%B5%AD%EC%96%B4%EC%82%AC%EC%96%91/EU/Spanish#.EC.A0.95.EB.B6.80_.EC.8A.B9.EC.9D.B8_.EB.AC.B8.EA.B5.AC_.EC.A0.81.EC.9A.A9" target="_blank">보기</a></td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -81,9 +105,9 @@ function info($var) {
 		<div class="row">
 			<div class="col-sm-12">
 				<pre class="pre-scrollable">
-				<?php
-				var_dump($_POST);
-				?>
+<?php
+var_dump($_POST);
+?>
 				</pre>
 			</div>
 		</div>

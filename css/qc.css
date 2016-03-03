@@ -3,7 +3,18 @@ body{padding-top: 70px;}
 #footer {margin-top: 3em;}
 fieldset legend {font-weight: bold;}
 .panel-body dl {margin-bottom: 0;}
+
+/* Checklist Table CSS*/
 #chkTable {font-size: 90%;}
+#chkTable tbody td:first-child,
+#chkTable tbody td:nth-child(2),
+#chkTable tbody td:nth-child(3),
+#chkTable tbody td:last-child {text-align: center;}
 #chkTable th {background-color: #e1e1e1; word-break: keep-all;}
-#chkTable th:first-child {width: 5%;}
-#chkTable th:nth-child(2), #chkTable th:nth-child(3) {width: 7%;}
+#chkTable thead th:first-child {width: 5%;}
+#chkTable thead th:nth-child(2) {width: 5%;}
+#chkTable thead th:nth-child(3) {width: 10%;}
+#chkTable thead th:last-child {width: 5%;}
+#chkTable thead th:nth-child(4) {};
+#chkTable thead th:nth-child(5) {};
+#chkTable thead th:nth-child(6) {};
