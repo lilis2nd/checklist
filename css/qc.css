@@ -14,8 +14,8 @@ fieldset legend {font-weight: bold;}
 #chkTable thead th:nth-child(3) {width: 10%;}
 #chkTable thead th:last-child {width: 5%;}
 #chkTable thead th:nth-child(4) {width: auto;}
-#chkTable thead th:nth-child(5) {width: 12%;}
-#chkTable thead th:nth-child(6) {width: 30%;}
+#chkTable thead th:nth-child(5) {width: 15%;}
+#chkTable thead th:nth-child(6) {width: 35%;}
 #chkTable thead th,
 #chkTable tbody td:first-child,
 #chkTable tbody td:nth-child(2),
@@ -23,4 +23,4 @@ fieldset legend {font-weight: bold;}
 #chkTable tbody td:nth-child(5),
 #chkTable tbody td:last-child {text-align: center;}
 #chkTable tbody td:nth-child(5) {word-break: keep-all;}
-
+#chkTable p {margin-bottom: 0;}

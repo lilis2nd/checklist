@@ -1,4 +1,8 @@
 <?php
+// Directory define
+define('INC', 'includes/');
+
+
 // Variables - Basic
 
 $model			=	$_POST['model'];
@@ -26,6 +30,19 @@ function label($var) {
 function info($var) {
 	echo $var;
 }
+
+$n = 1;
+function radio() {
+	global $n;
+	$val = ['n/a', 'y', 'n'];
+	for ($i=0; $i < count($val); $i++) {
+		echo "<label class='radio-inline'>\r\n";
+		echo "<input type='radio' name='check_".$n."' id='check_".$n."' value='".$val[$i]."'>".strtoupper($val[$i])."\r\n";
+		echo "</label>";
+	}
+}
+
+$question_array = [];
 ?>
 <div class="container">
 	<div id="checklist">
@@ -108,6 +125,7 @@ function info($var) {
 					<h3>Quality Checklist</h1>
 				</div>
 			</div>
+			<!-- PASS / FAIL 표기 -->
 			<div class="col-sm-2">
 				<div class="bg-success">
 
@@ -130,48 +148,38 @@ function info($var) {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>EU</td>
-								<td>공통</td>
-								<td>REACH 규제 대응 문구가 추가되었는가?</td>
-								<td>
-									<label class="radio-inline">
-										<input type="radio" name="test1" id="test1" value="Y"> Y
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="test1" id="test1" value="N"> N
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="test1" id="test1" value="N/A"> N/A
-									</label>
-								</td>
-								<td>
-									<ul>
-										<li>제품/배터리 분리배출 문구 뒤</li>
-										<li>CIS 제외</li>
-									</ul>
-								</td>
-								<td><a href="//wiki.astkorea.net/wiki/M3:PM/%EB%8B%A4%EA%B5%AD%EC%96%B4%EC%82%AC%EC%96%91/EU/Spanish#REACH_.EA.B7.9C.EC.A0.9C_.EB.8C.80.EC.9D.91_.EB.AC.B8.EA.B5.AC_.EC.A0.81.EC.9A.A9" target="_blank">보기</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>EU</td>
-								<td>Spanish</td>
-								<td>정부 승인 문구가 적용되었는가?</td>
-								<td>
-									<label class="radio-inline">
-										<input type="radio" name="test2" id="test2" value="Y"> Y
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="test2" id="test2" value="N"> N
-									</label>
-									<label class="radio-inline">
-										<input type="radio" name="test2" id="test2" value="N/A"> N/A
-									</label>
-								</td>
-								<td></td>
-								<td><a href="//wiki.astkorea.net/wiki/M3:PM/%EB%8B%A4%EA%B5%AD%EC%96%B4%EC%82%AC%EC%96%91/EU/Spanish#.EC.A0.95.EB.B6.80_.EC.8A.B9.EC.9D.B8_.EB.AC.B8.EA.B5.AC_.EC.A0.81.EC.9A.A9" target="_blank">보기</a></td>
+								<?php
+									include(INC . 'common.php');
+									function div1($filename) {
+										if (preg_match('/^common.php/i', $filename)) {
+											echo "<td>공통</td>\r\n";
+										}
+									}
+
+									function div2($var) {
+										if (empty($var['div'])) {
+											echo "<td>공통</td>\r\n";
+										}
+									}
+
+									$check['id'] = $fileflat . '_' . $n;
+									echo "<tr>\r\n";
+									echo "<td>$n</td>\r\n";
+									div1($file);
+									div2($file);
+									echo "<td><p id='".$check['id']."'>".$check['title']."</p></td>\r\n";
+									echo "<td>\r\n";
+									radio();
+									echo "</td>\r\n";
+									echo "<td>".$check['comment']."</td>\r\n";
+									if (empty($check['wiki'])) {
+										echo "<td>-</td>\r\n";
+									} else {
+										echo "<td>보기</td>\r\n";
+									}
+									echo "</tr>\r\n";
+									$n++;
+								?>
 							</tr>
 						</tbody>
 					</table>
@@ -182,7 +190,13 @@ function info($var) {
 			<div class="col-sm-12">
 				<pre class="pre-scrollable">
 <?php
+var_dump($file);
+var_dump($n);
+var_dump($check);
 var_dump($_POST);
+var_dump($question_array);
+unset($n);
+var_dump($n);
 ?>
 				</pre>
 			</div>
