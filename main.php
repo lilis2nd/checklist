@@ -68,7 +68,7 @@ function selector($array) {
 					<label for="language" class="col-sm-1 control-label">언어</label>
 					<div class="col-sm-3">
 						<select name="language" id="language" class="form-control">
-							<option><?php selector($language); ?></option>
+							<?php selector($language); ?>
 						</select>
 					</div>
 					<!-- 검수자 -->
@@ -96,15 +96,15 @@ function selector($array) {
 						<select name="network" id="network" class="form-control">
 							<option value="3g">3G</option>
 							<option value="lte">LTE</option>
-							<option value="wifi">Wi-Fi</option>
+							<option value="wifi">Wi-Fi Only</option>
 						</select>
 					</div>
 					<!-- 심카드 -->
 					<label for="sim" class="col-sm-1 control-label">SIM</label>
 					<div class="col-sm-3">
 						<select name="sim" id="sim" class="form-control">
-							<option value="ss">SS</option>
-							<option value="ds">DS</option>
+							<option value="ss">Single SIM</option>
+							<option value="ds">Dual SIM</option>
 							<option value="ssds">SS/DS</option>
 						</select>
 					</div>

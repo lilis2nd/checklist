@@ -4,7 +4,8 @@ body{padding-top: 70px;}
 fieldset legend {font-weight: bold;}
 .panel-body dl {margin-bottom: 0;}
 #chkTable ul, #chkTable ol {margin-bottom: 0;}
-#reference ul {margin-bottom: 0;}
+#reference ul {margin-bottom: 0; font-size: 95%;}
+dl dd .label {font-weight: normal;}
 
 /* Checklist Table CSS*/
 #chkTable {font-size: 90%;}

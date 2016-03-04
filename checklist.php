@@ -12,6 +12,7 @@ $dest				=	$_POST['dest'];
 $language		=	$_POST['language'];
 $person			=	$_POST['person'];
 $date				= date('Y/m/d');
+$time				= date('Y/m/d H:i:s');
 
 // Variables - Detailed
 $battery		=	$_POST['battery'];
@@ -55,14 +56,14 @@ $question_array = [];
 					</div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
-							<dt>모델명 (출향지)</dt>
-							<dd><?php info($model); ?> (<?php info($dest); ?>)</dd>
+							<dt>모델명</dt>
+							<dd><?php info($model); ?></dd>
 							<dt>자재 / OS</dt>
 							<dd><?php info($type); ?> / <?php info($os); ?></dd>
-							<dt>언어</dt>
-							<dd><?php info($language); ?></dd>
+							<dt>언어 (출향지)</dt>
+							<dd><?php info($language); ?> (<?php info($dest); ?>)</dd>
 							<dt>검수자 (검수일)</dt>
-							<dd><?php info($person); ?> (<abbr title="<?php echo date('Y/m/d H:m:s'); ?>"><?php info($date); ?></abbr>)</dd>
+							<dd><?php info($person); ?> (<abbr title="<?php echo $time; ?>"><?php info($date); ?></abbr>)</dd>
 							<dt>특이사항</dt>
 							<dd>
 								<?php
@@ -96,8 +97,10 @@ $question_array = [];
 									label("시리즈 합본");
 								}
 
-								if ($waterproof == "yes") {
-									label("방수");
+								if (isset($waterproof)) {
+									if ($waterproof == "yes") {
+										label("방수");
+									}
 								}
 								?>
 							</dd>
@@ -149,36 +152,59 @@ $question_array = [];
 						</thead>
 						<tbody>
 								<?php
-									include(INC . 'common.php');
-									function div1($filename) {
-										if (preg_match('/^common.php/i', $filename)) {
-											echo "<td>공통</td>\r\n";
-										}
+									// 파일 불러오기
+									$files = scandir(INC, SCANDIR_SORT_NONE);
+									for ($i = 2; $i < count($files); $i++) {
+										include INC . $files[$i];
+										$fileList = [];
+										$fileList = array_push($fileList, $files[$i]);
 									}
 
-									function div2($var) {
-										if (empty($var['div'])) {
-											echo "<td>공통</td>\r\n";
-										}
-									}
+									// function div1($filename) {
+									// 	if (preg_match('/^common/i', $filename)) {
+									// 		echo "<td>공통</td>\r\n";
+									// 	}
+									// }
 
-									$check['id'] = $fileflat . '_' . $n;
-									echo "<tr>\r\n";
-									echo "<td>$n</td>\r\n";
-									div1($file);
-									div2($file);
-									echo "<td><p id='".$check['id']."'>".$check['title']."</p></td>\r\n";
-									echo "<td>\r\n";
-									radio();
-									echo "</td>\r\n";
-									echo "<td>".$check['comment']."</td>\r\n";
-									if (empty($check['wiki'])) {
-										echo "<td>-</td>\r\n";
-									} else {
-										echo "<td>보기</td>\r\n";
-									}
-									echo "</tr>\r\n";
-									$n++;
+									// function div2($var) {
+									// 	if (empty($var['div2'])) {
+									// 		echo "<td>공통</td>\r\n";
+									// 	}
+									// }
+
+									// $check['id'] = $fileflat . '_' . $n;
+									// echo "<tr>\r\n";
+									// //번호
+									// echo "<td>$n</td>\r\n";
+									// div1($file);
+									// div2($file);
+									// //검수항목
+									// echo "<td><p id='".$check['id']."'>".$check['title']."</p></td>\r\n";
+									// echo "<td>\r\n";
+									// // 확인
+									// radio();
+									// echo "</td>\r\n";
+									// // 비고
+									// if (empty($check['comment'])) {
+									// 	echo "<td></td>\r\n";
+									// } elseif (!empty($check['comment']) && !empty($check['noti_date'])) {
+									// 	echo "<td>\r\n";
+									// 	echo "<ul>\r\n";
+									// 	echo "<li>".$check['comment']."</li>\r\n";
+									// 	echo "<li>".$check['noti_date']."</li>\r\n";
+									// 	echo "</ul>\r\n";
+									// 	echo "</td>\r\n";
+									// } else {
+									// 	echo "<td>".$check['comment']."</td>\r\n";
+									// }
+									// // 위키
+									// if (empty($check['wiki'])) {
+									// 	echo "<td>-</td>\r\n";
+									// } else {
+									// 	echo "<td>보기</td>\r\n";
+									// }
+									// echo "</tr>\r\n";
+									// $n++;
 								?>
 							</tr>
 						</tbody>
@@ -190,6 +216,7 @@ $question_array = [];
 			<div class="col-sm-12">
 				<pre class="pre-scrollable">
 <?php
+var_dump($fileList);
 var_dump($file);
 var_dump($n);
 var_dump($check);
