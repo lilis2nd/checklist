@@ -155,19 +155,34 @@ $question_array = [];
 						</thead>
 						<tbody>
 								<?php
+									// 구분#1
+									function div1($filename) {
+										if (preg_match('/^common/i', $filename)) {
+											echo "<td>공통</td>\r\n";
+										}
+									}
+
+									function checklist() {
+										global $n;
+										echo "<tr>\r\n";
+										echo "<td>".$n."</td>\r\n";
+										echo "</tr>\r\n";
+
+										if (preg_match('/^common/i', $files[$i])) {
+											echo "<td>공통</td>\r\n";
+										}
+									}
+
 									// 파일 불러오기
-									$files = scandir(INC, SCANDIR_SORT_NONE);
+									$files = scandir(INC, 0);
 									for ($i = 2; $i < count($files); $i++) {
+										$check['id'] = basename($files[$i], '.php');
 										include INC . $files[$i];
+										checklist();
 										$fileList = [];
 										$fileList = array_push($fileList, $files[$i]);
 									}
 
-									// function div1($filename) {
-									// 	if (preg_match('/^common/i', $filename)) {
-									// 		echo "<td>공통</td>\r\n";
-									// 	}
-									// }
 
 									// function div2($var) {
 									// 	if (empty($var['div2'])) {
@@ -220,7 +235,6 @@ $question_array = [];
 				<pre class="pre-scrollable">
 <?php
 var_dump($fileList);
-var_dump($file);
 var_dump($n);
 var_dump($check);
 var_dump($_POST);
