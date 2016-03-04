@@ -85,6 +85,8 @@ $question_array = [];
 									label("Single SIM");
 								} elseif ($sim == "ds") {
 									label("Dual SIM");
+								} elseif ($sim == "na") {
+									null;
 								} else {
 									label("SS/DS");
 								}
@@ -147,6 +149,7 @@ $question_array = [];
 								<th>검수 사항</th>
 								<th>확인</th>
 								<th>비고</th>
+								<th>예시</th>
 								<th>위키</th>
 							</tr>
 						</thead>

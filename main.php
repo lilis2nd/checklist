@@ -106,8 +106,21 @@ function selector($array) {
 							<option value="ss">Single SIM</option>
 							<option value="ds">Dual SIM</option>
 							<option value="ssds">SS/DS</option>
+							<option value="na">N/A</option>
 						</select>
 					</div>
+
+					<script>
+						$('#network').on("change", function() {
+							if ($('#network').val() == "wifi") {
+								$('#sim').attr("disabled", "disabled");
+								$('#sim').val('na');
+							} else {
+								$('#sim').removeAttr("disabled");
+							}
+						});
+					</script>
+
 				</div>
 				<div class="form-group form-group-sm">
 					<!-- 합본/책 -->

@@ -16,7 +16,8 @@ dl dd .label {font-weight: normal;}
 #chkTable thead th:last-child {width: 5%;}
 #chkTable thead th:nth-child(4) {width: auto;}
 #chkTable thead th:nth-child(5) {width: 15%;}
-#chkTable thead th:nth-child(6) {width: 35%;}
+#chkTable thead th:nth-child(6) {width: 30%;}
+#chkTable thead th:nth-child(7) {width: 5%;}
 #chkTable thead th,
 #chkTable tbody td:first-child,
 #chkTable tbody td:nth-child(2),
