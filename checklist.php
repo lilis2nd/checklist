@@ -145,6 +145,141 @@ $n = 1;
 						</thead>
 						<tbody>
 						<?php
+						$modals = scandir(MODAL, 0);
+
+						// modal 불러오기
+						for ($i = 2; $i < count($modals); $i++) {
+							$modalFiles = [];
+							include MODAL . $modals[$i];
+							$modalFiles = array_push($modalFiles, $modals[$i]);
+						}
+
+						// Checklist Function
+						function checklist($array, $dir) {
+							global $n, $type;
+
+							for ($i = 2; $i < count($array); $i++) {
+
+								//preset
+								$check = [];
+								$check['id'] = basename($array[$i], '.php');
+
+								//get file
+								include_once $dir . $array[$i];
+
+
+								// row 시작
+								echo "<tr>\r\n";
+
+								// 자동 번호 매기기
+								echo "<td>". $n . "</td>\r\n";
+
+								// 구분#1
+								if (preg_match('/^common_/i', $array[$i])) {
+									echo "<td>공통</td>\r\n";
+								} else {
+									$div1 = explode('_', $array[$i]);
+									for ($j=0; $j < 1; $j++) {
+										echo "<td>".strtoupper($div1[$j])."</td>\r\n";
+									}
+								}
+
+								// 구분#2
+								echo "<td>\r\n";
+								if (empty($check['구분'])) {
+									echo "공통";
+								} else {
+									echo $check['구분'];
+								}
+								echo "</td>\r\n";
+
+								// 검수사항
+								echo "<td>".$check['검수사항']."</td>\r\n";
+
+								// 확인
+								echo "<td>\r\n";
+								$checkVal = ['n/a', 'y', 'n'];
+								for ($j = 0; $j < count($checkVal); $j++) {
+									echo "<label class='radio-inline'>\r\n";
+									echo "<input type='radio' name='".$check['id']."' id='".$check['id']."' value='".$checkVal[$j]."'>".strtoupper($checkVal[$j])."\r\n";
+									echo "</label>\r\n";
+								}
+								echo "</td>\r\n";
+
+								// 비고 & 공지
+								echo "<td>\r\n";
+								if (!empty($check['비고']) && !empty($check['공지일'])) {
+									echo "<ul>\r\n";
+										echo "<li>".$check['비고']."</li>\r\n";
+										echo "<li><small>공지일: ".$check['공지일']."</small></li>\r\n";
+									echo "</ul>\r\n";
+								} elseif (!empty($check['비고']) && empty($check['공지일'])) {
+									echo "<ul>\r\n";
+										echo "<li>".$check['비고']."</li>\r\n";
+									echo "</ul>\r\n";
+								} elseif (empty($check['비고']) && !empty($check['공지일'])) {
+									echo "<ul>\r\n";
+										echo "<li><small>공지일: ".$check['공지일']."</small></li>\r\n";
+									echo "</ul>\r\n";
+								} else {
+									null;
+								}
+								echo "</td>\r\n";
+
+								// 예시
+								echo "<td>\r\n";
+								$modalFile = MODAL . $check['id'] . ".php";
+								if (file_exists($modalFile)) {
+									echo "<a href='#". $check['id'] ."' data-toggle='modal'>보기</a>\r\n";
+								} else {
+									echo "&ndash;";
+								}
+								echo "</td>\r\n";
+
+								// 위키
+								echo "<td>\r\n";
+								if (empty($check['위키'])) {
+									echo "&ndash;";
+								} else {
+									echo "<a href='".$check['위키']."' target='_blank'>보기</a>";
+								}
+								echo "</td>\r\n";
+
+								// row 끝내기
+								echo "</tr>\r\n";
+
+								// 자동 번호 +1 하기
+								$n++;
+							}
+						}
+
+						// QSG & UM 공통 가져오기
+						$common = scandir(COMMON, 0);
+						$qsg = scandir(QSG, 0);
+						$um = scandir(UM, 0);
+
+						if ($type == "QSG") {
+							checklist($common, COMMON);
+							checklist($qsg, QSG);
+						} else {
+							checklist($common, COMMON);
+							checklist($um, UM);
+						}
+
+						// switch($type) {
+						// 	case 'QSG':
+						// 		checklist($common);
+						// 		checklist($qsg);
+						// 		break;
+
+						// 	case 'UM':
+						// 		checklist($common);
+						// 		checklist($um);
+						// 		break;
+
+						// 	default:
+						// 		break;
+						// }
 
 						?>
 						</tbody>
@@ -156,8 +291,10 @@ $n = 1;
 			<div class="col-sm-12">
 				<pre class="pre-scrollable">
 <?php
-print_r($files_common);
-var_dump($_POST);
+print_r(get_included_files());
+print_r($files);
+print_r($_POST);
+print_r($_SESSION);
 unset($n);
 ?>
 				</pre>
