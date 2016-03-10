@@ -23,6 +23,7 @@ dl dd .label {font-weight: normal;}
 #chkTable tbody td:nth-child(2),
 #chkTable tbody td:nth-child(3),
 #chkTable tbody td:nth-child(5),
-#chkTable tbody td:last-child {text-align: center;}
+#chkTable tbody td:nth-child(7), #chkTable tbody td:last-child {text-align: center;}
 #chkTable tbody td:nth-child(5) {word-break: keep-all;}
+#chkTable tbody td:nth-child(4) {padding-left: 1em;}
 #chkTable p {margin-bottom: 0;}

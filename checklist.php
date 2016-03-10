@@ -1,10 +1,11 @@
 <?php
 // Directory define
-define('INC', 'includes/');
-
+define('COMMON', 'common/');
+define('QSG', 'qsg/');
+define('UM', 'um/');
+define('MODAL', 'modals/');
 
 // Variables - Basic
-
 $model			=	$_POST['model'];
 $type				=	$_POST['type'];
 $os					=	$_POST['os'];
@@ -33,17 +34,6 @@ function info($var) {
 }
 
 $n = 1;
-function radio() {
-	global $n;
-	$val = ['n/a', 'y', 'n'];
-	for ($i=0; $i < count($val); $i++) {
-		echo "<label class='radio-inline'>\r\n";
-		echo "<input type='radio' name='check_".$n."' id='check_".$n."' value='".$val[$i]."'>".strtoupper($val[$i])."\r\n";
-		echo "</label>";
-	}
-}
-
-$question_array = [];
 ?>
 <div class="container">
 	<div id="checklist">
@@ -154,77 +144,9 @@ $question_array = [];
 							</tr>
 						</thead>
 						<tbody>
-								<?php
-									// 구분#1
-									function div1($filename) {
-										if (preg_match('/^common/i', $filename)) {
-											echo "<td>공통</td>\r\n";
-										}
-									}
+						<?php
 
-									function checklist() {
-										global $n;
-										echo "<tr>\r\n";
-										echo "<td>".$n."</td>\r\n";
-										echo "</tr>\r\n";
-
-										if (preg_match('/^common/i', $files[$i])) {
-											echo "<td>공통</td>\r\n";
-										}
-									}
-
-									// 파일 불러오기
-									$files = scandir(INC, 0);
-									for ($i = 2; $i < count($files); $i++) {
-										$check['id'] = basename($files[$i], '.php');
-										include INC . $files[$i];
-										checklist();
-										$fileList = [];
-										$fileList = array_push($fileList, $files[$i]);
-									}
-
-
-									// function div2($var) {
-									// 	if (empty($var['div2'])) {
-									// 		echo "<td>공통</td>\r\n";
-									// 	}
-									// }
-
-									// $check['id'] = $fileflat . '_' . $n;
-									// echo "<tr>\r\n";
-									// //번호
-									// echo "<td>$n</td>\r\n";
-									// div1($file);
-									// div2($file);
-									// //검수항목
-									// echo "<td><p id='".$check['id']."'>".$check['title']."</p></td>\r\n";
-									// echo "<td>\r\n";
-									// // 확인
-									// radio();
-									// echo "</td>\r\n";
-									// // 비고
-									// if (empty($check['comment'])) {
-									// 	echo "<td></td>\r\n";
-									// } elseif (!empty($check['comment']) && !empty($check['noti_date'])) {
-									// 	echo "<td>\r\n";
-									// 	echo "<ul>\r\n";
-									// 	echo "<li>".$check['comment']."</li>\r\n";
-									// 	echo "<li>".$check['noti_date']."</li>\r\n";
-									// 	echo "</ul>\r\n";
-									// 	echo "</td>\r\n";
-									// } else {
-									// 	echo "<td>".$check['comment']."</td>\r\n";
-									// }
-									// // 위키
-									// if (empty($check['wiki'])) {
-									// 	echo "<td>-</td>\r\n";
-									// } else {
-									// 	echo "<td>보기</td>\r\n";
-									// }
-									// echo "</tr>\r\n";
-									// $n++;
-								?>
-							</tr>
+						?>
 						</tbody>
 					</table>
 				</div>
@@ -234,13 +156,9 @@ $question_array = [];
 			<div class="col-sm-12">
 				<pre class="pre-scrollable">
 <?php
-var_dump($fileList);
-var_dump($n);
-var_dump($check);
+print_r($files_common);
 var_dump($_POST);
-var_dump($question_array);
 unset($n);
-var_dump($n);
 ?>
 				</pre>
 			</div>
