@@ -7,7 +7,7 @@ $os = ['Jellybean', 'Kitkat', 'Lollipop', 'Marshmallow'];
 $dest = [
 	['Europe', 'EU', 'CIS'],
 	['Asia', 'MEA', 'SEA', 'SWA', 'IND', 'AUS', 'NZL'],
-	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TC'],
+	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TW'],
 	['Latin', 'LTN', 'MEX', 'COL', 'ARG']
 ];
 $language = ['English', 'Albanian', 'Arabic', 'Bulgarian', 'Chinese', 'Croatian', 'Czech', 'Danish', 'Dutch', 'Estonian', 'Farsi', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hungarian', 'Indonesian', 'Italian', 'Latvian', 'Lithuanian', 'Macedonian', 'Norwegian', 'Polish', 'Portuguese', 'Romanian', 'Serbian', 'Slovak', 'Slovenian', 'Spanish', 'Swedish', 'Thai', 'Turkish', 'Kazakh', 'Russian', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese'];
