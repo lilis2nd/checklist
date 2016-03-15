@@ -1,9 +1,11 @@
 <?php
 // Directory define
-define('COMMON', 'common/');
+define('COMMON', 'inc/common/');
 define('MODAL', 'modals/');
+define('INC', 'inc/');
+define('CR', "\r\n");
 
-include('inc.find.php');
+// include('inc.find.php');
 
 // Variables - Basic
 $model			=	$_POST['model'];
@@ -108,7 +110,7 @@ $n = 1;
 							<h3 class="panel-title">참고 자료</h3>
 						</div>
 						<div class="panel-body">
-							<?php include('inc.check.ref.php'); ?>
+							<?php include(INC.'inc.check.ref.php'); ?>
 						</div>
 					</div>
 				</div>
@@ -146,88 +148,67 @@ $n = 1;
 						<tbody>
 						<?php
 
-						// include용 함수
-						function inc($dir) {
-							$temp = scandir($dir, 0);
-							for ($i = 2; $i < count($temp); $i++) {
-								include_once $dir . $temp[$i];
-							}
+						// 디렉토리 선택
+						switch ($type) {
+								case 'QSG':
+									define('TYPE', 'inc/qsg/');
+									break;
+
+								case 'UM':
+									define('TYPE', 'inc/um/');
+									break;
 						}
 
-						if ($type == "QSG") {
-							define('DIR', 'qsg/');
-						} else {
-							define('DIR', 'um/');
+						switch ($dest) {
+							case 'EU':
+							case 'CIS':
+								define('DEST', 'inc/eu/');
+								break;
+
+							case 'MEA':
+							case 'SEA':
+							case 'SWA':
+							case 'IND':
+							case 'NZL':
+							case 'AUS':
+								define('DEST', 'inc/asia/');
+								break;
+
+							case 'CHN':
+							case 'CMCC':
+							case 'CTC':
+							case 'CU':
+							case 'HK':
+							case 'TW':
+								define('DEST', 'inc/china/');
+								break;
+
+							case 'LTN':
+							case 'MEX':
+							case 'ARG':
+							case 'COL':
+								define('DEST', 'inc/latin/');
+								break;
+
+							default:
+								null;
 						}
 
+						// include common
 
-						function checklist() {
-							global $n, $file;
-							// row 시작
-							echo "<tr>\r\n";
-
-							// 자동 번호 매기기
-							echo "<td>".$n."</td>\r\n";
-
-							// 구분#1
-							if (preg_match('/\/common_\d+\.php$/i', $file) || preg_match('/common_'.strtolower($type).'_\d+\.php$/i/', $file)) {
-								echo "<td>공통</td>\r\n";
-							}
-
-							// 구분#2
-							echo "<td>\r\n";
-							if (empty($check['구분'])) {
-								echo "공통";
-							} else {
-								echo $check['구분'];
-							}
-							echo "</td>\r\n";
-
-							// row 끝내기
-							echo "</tr>\r\n";
-							$n++;
-						}
-
-
-
-						$common = glob(COMMON .'*');
-						foreach ($common as $file) {
-							if (preg_match('/common_\d+\.php$/', $file)) {
-								include_once $file;
-								checklist();
-							}
-						}
-
-						$dir = glob(DIR . '*');
-						print_r($dir);
-						foreach ($dir as $file) {
-							if (preg_match('/_'.strtolower($type).'_\d+\.php$/', $file)) {
-								include_once $file;
-								checklist();
-							}
-						}
-
-
-						// glob()을 사용하여 디렉토리를 배열에 담은 후 정규식으로 분리
-						// $glob = glob('/path/to/dir/*');
-						// foreach($glob as $file) {
-						//     if(preg_match('/_\d+x\d+_thb\./', $file)) {
-						//         // Valid match
-						//         echo $file;
-						//     }
+						// if $lang = eng {
+						// 	define dir > eng/
+						// } else {
+						// 	define dir > ml/
 						// }
 
-						// modal 불러오기
-						// for ($i = 2; $i < count($modals); $i++) {
-						// 	$modalFiles = [];
-						// 	include MODAL . $modals[$i];
-						// 	$modalFiles = array_push($modalFiles, $modals[$i]);
-						// }
+						// filename: qsg_common_XX
+						// filename: qsg_common_dest_xx
+						// filename: qsg_common_dest_lang_xx
+						// 전체 공통 - 자재 공통 - 출향지 공통 - 언어
+						// 언어 exist = ok
+						// 언어 non-exist = fail
 
-
-						// include MODAL & COMMON
-						// inc(MODAL);
-						// inc(COMMON);
 
 						?>
 						</tbody>
@@ -240,6 +221,7 @@ $n = 1;
 				<pre class="pre-scrollable">
 <?php
 print_r(get_included_files());
+$incList = get_included_files();
 print_r($_POST);
 print_r($_SESSION);
 unset($n);
