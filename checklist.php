@@ -1,4 +1,7 @@
 <?php
+// session start
+session_start();
+
 // Directory define
 define('COMMON', 'inc/common/');
 define('MODAL', 'modals/');
@@ -6,11 +9,13 @@ define('INC', 'inc/');
 define('CR', "\r\n");
 
 // include('inc.find.php');
+include('db.php');
 
 // Variables - Basic
 $model			=	$_POST['model'];
 $type				=	$_POST['type'];
 $os					=	$_POST['os'];
+$region			= $_SESSION['region'];
 $dest				=	$_POST['dest'];
 $language		=	$_POST['language'];
 $person			=	$_POST['person'];
@@ -20,7 +25,10 @@ $time				= date('Y/m/d H:i:s');
 // Variables - Detailed
 $battery		=	$_POST['battery'];
 $network		=	$_POST['network'];
-$sim				=	$_POST['sim'];
+if (isset($_POST['sim'])) {
+	$sim				=	$_POST['sim'];
+}
+
 $book				=	$_POST['book'];
 if (isset($_POST['waterproof'])) {
 	$waterproof	=	$_POST['waterproof'];
@@ -28,7 +36,7 @@ if (isset($_POST['waterproof'])) {
 
 // 특이사항 label용
 function label($var) {
-	echo "<span class=\"label label-info\">$var</span> \r\n";
+	echo "<span class=\"label label-info\">$var</span>".CR;
 }
 
 function info($var) {
@@ -44,7 +52,7 @@ $n = 1;
 			<div class="col-sm-7">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Check Information</h3>
+						<h3 class="panel-title">Information</h3>
 					</div>
 					<div class="panel-body">
 						<dl class="dl-horizontal">
@@ -73,14 +81,16 @@ $n = 1;
 									label("Wi-Fi Only");
 								}
 
-								if ($sim == "ss") {
-									label("Single SIM");
-								} elseif ($sim == "ds") {
-									label("Dual SIM");
-								} elseif ($sim == "na") {
-									null;
-								} else {
-									label("SS/DS");
+								if (isset($sim)) {
+									if ($sim == "ss") {
+										label("Single SIM");
+									} elseif ($sim == "ds") {
+										label("Dual SIM");
+									} elseif ($sim == "na") {
+										null;
+									} else {
+										label("SS/DS");
+									}
 								}
 
 								if ($book == "qsg") {
@@ -107,7 +117,7 @@ $n = 1;
 				<div id="reference">
 					<div class="panel panel-info">
 						<div class="panel-heading">
-							<h3 class="panel-title">참고 자료</h3>
+							<h3 class="panel-title">Reference</h3>
 						</div>
 						<div class="panel-body">
 							<?php include(INC.'inc.check.ref.php'); ?>
@@ -136,8 +146,10 @@ $n = 1;
 						<thead>
 							<tr>
 								<th>No.</th>
-								<th>구분#1</th>
-								<th>구분#2</th>
+								<th>자재</th>
+								<th>출향지</th>
+								<th>언어</th>
+								<th>분류</th>
 								<th>검수 사항</th>
 								<th>확인</th>
 								<th>비고</th>
@@ -147,67 +159,154 @@ $n = 1;
 						</thead>
 						<tbody>
 						<?php
-
-						// 디렉토리 선택
-						switch ($type) {
-								case 'QSG':
-									define('TYPE', 'inc/qsg/');
-									break;
-
-								case 'UM':
-									define('TYPE', 'inc/um/');
-									break;
+						function td($var) {
+							echo "<td>".$var."</td>".CR;
 						}
 
-						switch ($dest) {
-							case 'EU':
-							case 'CIS':
-								define('DEST', 'inc/eu/');
-								break;
-
-							case 'MEA':
-							case 'SEA':
-							case 'SWA':
-							case 'IND':
-							case 'NZL':
-							case 'AUS':
-								define('DEST', 'inc/asia/');
-								break;
-
-							case 'CHN':
-							case 'CMCC':
-							case 'CTC':
-							case 'CU':
-							case 'HK':
-							case 'TW':
-								define('DEST', 'inc/china/');
-								break;
-
-							case 'LTN':
-							case 'MEX':
-							case 'ARG':
-							case 'COL':
-								define('DEST', 'inc/latin/');
-								break;
-
-							default:
-								null;
+						function radio() {
+							global $n;
+							$checkVal = ['n/a', 'y', 'n'];
+							$id = 'radio_'.$n;
+							echo "<td>".CR;
+							for ($i = 0; $i < count($checkVal); $i++) {
+								echo "<label class='radio-inline'>".CR;
+								echo "<input type='radio' name='".$id."' id='".$id."' value='".$checkVal[$i]."'>".strtoupper($checkVal[$i]).CR;
+								echo "</label>".CR;
+							}
+							echo "</td>".CR;
 						}
 
-						// include common
+						function spread($result) {
+							global $n;
+							while($get = $result->fetch_assoc()) {
+								echo "<tr>".CR;
+								td($n);
+								td($get['type']);
+								td($get['destination']);
+								td($get['language']);
+								td($get['category']);
+								td($get['question']);
+								radio();
+								if (!isset($get['comment']) && !isset($get['date'])) {
+									echo "<td></td>".CR;
+								} elseif(!isset($get['date']) && isset($get['comment'])) {
+									echo "<td>".CR;
+									echo "<ul>".CR;
+									echo "<li>".$get['comment']."</li>".CR;
+									echo "</ul>".CR;
+									echo "</td>".CR;
+								} elseif (isset($get['date']) && !isset($get['comment'])) {
+									$noti_date = date('Y.m.d', strtotime($get['date']));
+									echo "<td>".CR;
+									echo "<ul>".CR;
+									echo "<li><small>공지일: ".$noti_date."</small></li>".CR;
+									echo "</ul>".CR;
+									echo "</td>".CR;
+								} elseif (isset($get['date']) && isset($get['comment'])) {
+									$noti_date = date('Y.m.d', strtotime($get['date']));
+									echo "<td>".CR;
+									echo "<ul>".CR;
+									echo "<li>".$get['comment']."</li>".CR;
+									echo "<li><small>공지일: ".$noti_date."</small></li>".CR;
+									echo "</ul>".CR;
+									echo "</td>".CR;
+								}
+								td($get['example']);
+								if(isset($get['wiki'])) {
+									echo "<td>";
+									echo "<a href='".$get['wiki']."' target='_blank'>보기</a>";
+									echo "</td>".CR;
+								} else { echo "<td></td>".CR; }
+								echo "</tr>".CR;
+								$n++;
+								unset($get);
+							}
+						}
 
-						// if $lang = eng {
-						// 	define dir > eng/
-						// } else {
-						// 	define dir > ml/
+						if ($language == 'English') {
+							null;
+						} else {
+							// 공통
+							$sql = "SELECT * FROM Common WHERE type = '공통' AND region = '공통' AND destination = '공통' AND language = '공통' AND category = '공통'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+						}
+
+
+						// // 공통 항목 불러오기
+						// $sql = "SELECT * FROM Common WHERE type LIKE '공통' AND category LIKE '공통' ORDER BY Common . id ASC";
+						// if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+ 					// 	if ($result->num_rows === 0) {echo "nothing to add"; }
+						// spread($result);
+
+						// // 공통 + 자재
+						// $sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '공통' AND language like '공통' AND 영어 LIKE 'Y' AND 다국어 LIKE 'Y' AND category LIKE '공통'";
+						// if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+ 					// 	if ($result->num_rows === 0) {echo "nothing to add"; }
+						// spread($result);
+
+						// // 공통 + 자재 + 영/다
+						// $sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '공통' AND language like '공통' AND " . ($language == "English" ? "영어 LIKE 'Y' AND 다국어 LIKE 'N'" : "영어 LIKE 'N' AND 다국어 LIKE 'Y'")." AND category LIKE '공통'";
+						// if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+ 					// 	if ($result->num_rows === 0) {echo "nothing to add"; }
+						// spread($result);
+
+						// // 공통 + 자재 + 출향
+						// $sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '".$dest."' AND language like '공통' AND 영어 LIKE 'Y' AND 다국어 LIKE 'Y' AND category LIKE '공통'";
+						// if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+ 					// 	if ($result->num_rows === 0) {echo "nothing to add"; }
+						// spread($result);
+
+						// // 배터리 일체형/분리형 구분
+						// switch($battery) {
+						// 	case 'uni':
+						// 		if ($dest == "EU") {
+						// 			$sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '".$dest."' AND language like '공통' AND 영어 LIKE 'Y' AND 다국어 LIKE 'Y' AND category LIKE '배터리 일체형'";
+						// 				if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+				 	// 					if ($result->num_rows === 0) {echo "nothing to add"; }
+						// 				spread($result);
+						// 		} else {
+						// 			null;
+						// 		}
+						// 		break;
+
+						// 	case 'sep':
+						// 		break;
+
+						// 	default:
+						// 		break;
 						// }
 
-						// filename: qsg_common_XX
-						// filename: qsg_common_dest_xx
-						// filename: qsg_common_dest_lang_xx
-						// 전체 공통 - 자재 공통 - 출향지 공통 - 언어
-						// 언어 exist = ok
-						// 언어 non-exist = fail
+						// // 공통 + 자재 + 출향 + 영/다
+						// $sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '".$dest."' AND language like '".$language."' AND " . ($language == "English" ? "영어 LIKE 'Y' AND 다국어 LIKE 'N'" : "영어 LIKE 'N' AND 다국어 LIKE 'Y'")." AND category LIKE '공통'";
+						// if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+ 					// 	if ($result->num_rows === 0) {echo "nothing to add"; }
+						// spread($result);
+
+						// // 3G / LTE / Wi-Fi
+						// switch($network) {
+						// 	case '3g':
+						// 	case 'lte':
+						// 		$sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '".$dest."' AND language like '".$language."' AND " . ($language == "English" ? "영어 LIKE 'Y' AND 다국어 LIKE 'N'" : "영어 LIKE 'N' AND 다국어 LIKE 'Y'")." AND category LIKE '3G/LTE'";
+						// 			if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+			 		// 				if ($result->num_rows === 0) {echo "nothing to add"; }
+						// 			spread($result);
+						// 		break;
+						// 	case 'wifi':
+						// 		$sql = "SELECT * FROM Common WHERE type LIKE '".$type."' AND destination LIKE '".$dest."' AND language like '".$language."' AND " . ($language == "English" ? "영어 LIKE 'Y' AND 다국어 LIKE 'N'" : "영어 LIKE 'N' AND 다국어 LIKE 'Y'")." AND category LIKE 'Wi-Fi 전용'";
+						// 		if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+		 			// 			if ($result->num_rows === 0) {echo "nothing to add"; }
+						// 		spread($result);
+						// 		break;
+						// 	default:
+						// 		break;
+						// }
+
+
+						// 방수일 때
+
+						// 합본일 때
+
 
 
 						?>
@@ -221,10 +320,11 @@ $n = 1;
 				<pre class="pre-scrollable">
 <?php
 print_r(get_included_files());
-$incList = get_included_files();
 print_r($_POST);
 print_r($_SESSION);
 unset($n);
+
+
 ?>
 				</pre>
 			</div>

@@ -9,21 +9,27 @@ dl dd .label {font-weight: normal;}
 
 /* Checklist Table CSS*/
 #chkTable {font-size: 90%;}
+#chkTable label {font-weight: normal;}
 #chkTable th {background-color: #e1e1e1; word-break: keep-all;}
-#chkTable thead th:first-child {width: 5%;}
+#chkTable td {vertical-align: middle;}
+/*#chkTable thead th:first-child {width: 5%;}
 #chkTable thead th:nth-child(2) {width: 5%;}
 #chkTable thead th:nth-child(3) {width: 10%;}
 #chkTable thead th:last-child {width: 5%;}
 #chkTable thead th:nth-child(4) {width: auto;}
 #chkTable thead th:nth-child(5) {width: 15%;}
 #chkTable thead th:nth-child(6) {width: 30%;}
-#chkTable thead th:nth-child(7) {width: 5%;}
+#chkTable thead th:nth-child(7) {width: 5%;}*/
 #chkTable thead th,
 #chkTable tbody td:first-child,
 #chkTable tbody td:nth-child(2),
 #chkTable tbody td:nth-child(3),
+#chkTable tbody td:nth-child(4),
 #chkTable tbody td:nth-child(5),
-#chkTable tbody td:nth-child(7), #chkTable tbody td:last-child {text-align: center;}
-#chkTable tbody td:nth-child(5) {word-break: keep-all;}
-#chkTable tbody td:nth-child(4) {padding-left: 1em;}
+#chkTable tbody td:nth-child(7),
+#chkTable tbody td:last-child {text-align: center;}
+#chkTable tbody td:nth-child(7) {word-break: keep-all;}
+/*#chkTable tbody td:nth-child(5) {word-break: break-word;}*/
+/*#chkTable tbody td:nth-child(4) {padding-left: 1em;}*/
+#chkTable tbody td:nth-child(6) {padding-left: 1em;}
 #chkTable p {margin-bottom: 0;}

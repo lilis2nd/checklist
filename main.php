@@ -1,6 +1,12 @@
 <?php
 
 // Session restart
+session_start();
+session_unset();
+session_destroy();
+session_write_close();
+setcookie(session_name(),'',0,'/');
+session_regenerate_id();
 
 $type = ['QSG', 'UM'];
 $os = ['Jellybean', 'Kitkat', 'Lollipop', 'Marshmallow'];
@@ -21,6 +27,7 @@ function selector($array) {
 	} else {
 		// 다차원배열일 경우
 		for ($i=0; $i < count($array); $i++) {
+			$_SESSION['region'] = $array[$i][0];
 			echo "<optgroup label=\"".$array[$i][0]."\">\r\n";
 			for ($j=1; $j < count($array[$i]); $j++) {
 				echo "<option id='" . mb_strtolower($array[$i][$j]) . "'>" . $array[$i][$j] . "</option>";

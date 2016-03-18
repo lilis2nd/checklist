@@ -1,0 +1,18 @@
+<check>
+	<item>
+		<category></category>
+		<question>파일명이 정확한가?</question>
+		<comment>형태: 모델명_자재명_출향지_언어_버전_날짜</comment>
+		<date></date>
+		<wiki></wiki>
+	</item>
+
+	<item>
+		<category></category>
+		<question>표지의 모델명이 정확한가?</question>
+		<comment></comment>
+		<date></date>
+		<wiki></wiki>
+	</item>
+
+</check>
