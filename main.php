@@ -1,12 +1,14 @@
 <?php
 
 // Session restart
-session_start();
+session_start([
+	'read_and_close' => true,
+]);
 session_unset();
-session_destroy();
-session_write_close();
-setcookie(session_name(),'',0,'/');
-session_regenerate_id();
+// session_destroy();
+// session_write_close();
+// setcookie(session_name(),'',0,'/');
+// session_regenerate_id();
 
 $type = ['QSG', 'UM'];
 $os = ['Jellybean', 'Kitkat', 'Lollipop', 'Marshmallow'];
@@ -16,7 +18,7 @@ $dest = [
 	['China', 'CHN', 'CMCC', 'CTC', 'CU', 'HK', 'TW'],
 	['Latin', 'LTN', 'MEX', 'COL', 'ARG']
 ];
-$language = ['English', 'Albanian', 'Arabic', 'Bulgarian', 'Chinese', 'Croatian', 'Czech', 'Danish', 'Dutch', 'Estonian', 'Farsi', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hungarian', 'Indonesian', 'Italian', 'Latvian', 'Lithuanian', 'Macedonian', 'Norwegian', 'Polish', 'Portuguese', 'Romanian', 'Serbian', 'Slovak', 'Slovenian', 'Spanish', 'Swedish', 'Thai', 'Turkish', 'Kazakh', 'Russian', 'Ukrainian', 'Urdu', 'Uzbek', 'Vietnamese'];
+$language = ['English','Albanian','Arabic','Bulgarian','Chinese','Croatian','Czech','Danish','Dutch','Estonian','Farsi','Finnish','French','German','Greek','Hebrew','Hungarian','Indonesian','Italian','Kazakh','Latvian','Lithuanian','Macedonian','Norwegian','Polish','Portuguese','Romanian','Russian','Serbian','Slovak','Slovenian','Spanish','Swedish','Thai','Turkish','Ukrainian','Urdu','Uzbek','Vietnamese'];
 
 function selector($array) {
 	// 다차원배열이 아닐 경우
@@ -37,6 +39,7 @@ function selector($array) {
 	}
 }
 ?>
+
 <main>
 	<div class="container">
 		<form class="form-horizontal" action="check.php" method="post">
@@ -71,6 +74,7 @@ function selector($array) {
 							<?php selector($dest); ?>
 						</select>
 					</div>
+
 					<!-- 언어 -->
 					<label for="language" class="col-sm-1 control-label">언어</label>
 					<div class="col-sm-3">
@@ -78,6 +82,7 @@ function selector($array) {
 							<?php selector($language); ?>
 						</select>
 					</div>
+
 					<!-- 검수자 -->
 					<label for="person" class="col-sm-1 control-label">검수자</label>
 					<div class="col-sm-3">
@@ -135,7 +140,8 @@ function selector($array) {
 					<div class="col-sm-3">
 						<select name="book" id="book" class="form-control">
 							<option value="na">N/A</option>
-							<option value="qsg">QSG 합본</option>
+							<option value="qsg_single">QSG</option>
+							<option value="qsg_multi">QSG 합본</option>
 							<option value="sim">SS/DS 합본</option>
 							<option value="series">시리즈 합본</option>
 						</select>

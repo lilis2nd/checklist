@@ -12,15 +12,30 @@ define('CR', "\r\n");
 include('db.php');
 
 // Variables - Basic
+$_SESSION		=	$_POST;
 $model			=	$_POST['model'];
 $type				=	$_POST['type'];
 $os					=	$_POST['os'];
-$region			= $_SESSION['region'];
+switch($_SESSION['dest']) {
+	case 'EU': case 'CIS':
+		$region = $_SESSION['region'] = 'Europe';
+		break;
+	case 'Asia': case 'MEA': case 'SEA': case 'SWA': case 'IND': case 'AUS': case 'NZL':
+		$region = $_SESSION['region'] = 'Asia';
+		break;
+	case 'CHN': case 'CMCC': case 'CTC': case 'CU': case 'HK': case 'TW':
+		$region = $_SESSION['region'] = 'China';
+		break;
+	case 'LTN': case 'MEX': case 'COL': case 'ARG':
+		$region = $_SESSION['region'] = 'Latin';
+		break;
+}
 $dest				=	$_POST['dest'];
 $language		=	$_POST['language'];
 $person			=	$_POST['person'];
 $date				= date('Y/m/d');
 $time				= date('Y/m/d H:i:s');
+
 
 // Variables - Detailed
 $battery		=	$_POST['battery'];
@@ -223,15 +238,112 @@ $n = 1;
 							}
 						}
 
-						if ($language == 'English') {
+						if ($language == 'English') { //영어
 							null;
-						} else {
+						} else { // 다국어
 							// 공통
 							$sql = "SELECT * FROM Common WHERE type = '공통' AND region = '공통' AND destination = '공통' AND language = '공통' AND category = '공통'";
 								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 								spread($result);
+
+							// 자재
+							$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '공통' AND destination = '공통' AND language = '공통' AND category = '공통' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+
+							if ($region == "China" && $language == "Chinese") {
+
+								// China 공통
+								$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = '공통' AND language = '".$language."' AND category = '공통' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+
+								switch(true) {
+									case ($dest == 'HK'):
+									case ($dest == 'TW'):
+										$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = '".$dest."' AND language = '".$language."' AND category = '공통' AND 다국어 = 'Y'";
+										if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+										spread($result);
+										break;
+
+									case ($dest != 'HK' || $dest != 'TW'):
+										// CHN 공통
+										$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = 'CHN' AND language = '".$language."' AND category = '공통' AND 다국어 = 'Y'";
+										if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+										spread($result);
+										// break;
+
+										// CMCC / CTC / CU
+										switch($dest) {
+											case 'CMCC':
+											case 'CTC':
+											case 'CU':
+												$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = '".$dest."' AND language = '".$language."' AND category = '공통' AND 다국어 = 'Y'";
+												if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+												spread($result);
+												break;
+										}
+								}
+
+							} else {
+
+								// 지역
+								$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = '공통' AND language = '공통' AND category = '공통' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+
+								// 출향지
+								$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = '".$dest."' AND rtl = '".($language == "Arabic"||$language == "Farsi"||$language == "Urdu"||$language == "Hebrew" ? 'Y' : 'N')."' AND language = '공통' AND category = '공통' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+
+								// 언어
+								$sql = "SELECT * FROM Common WHERE type = '".$type."' AND region = '".$region."' AND destination = '".$dest."' AND language = '".$language."' AND category = '공통' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+							}
 						}
 
+						switch (true) {
+							// 네트워크
+							case ($network == '3g'):
+							case ($network == 'lte'):
+								break;
+							case ($network == 'wifi'):
+								$sql = "SELECT * FROM Common WHERE language = '".$language."' AND category = 'Wi-Fi 전용' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+								break;
+						}
+						switch (true) {
+							// 배터리
+							case ($battery == 'uni'):
+								$sql = "SELECT * FROM Common WHERE language = '".$language."' AND  category = '배터리 일체형' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+								break;
+							case ($battery == 'sep'):
+								break;
+						}
+
+						switch($book) {
+							case 'qsg_single':
+								$sql = "SELECT * FROM Common WHERE category = '책 - QSG'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+
+							case 'qsg_multi':
+								$sql = "SELECT * FROM Common WHERE category = '책 - QSG 합본'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+								break;
+
+							case 'sim':
+								break;
+
+							case 'series':
+								break;
+						}
 
 						// // 공통 항목 불러오기
 						// $sql = "SELECT * FROM Common WHERE type LIKE '공통' AND category LIKE '공통' ORDER BY Common . id ASC";

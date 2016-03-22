@@ -28,8 +28,10 @@ dl dd .label {font-weight: normal;}
 #chkTable tbody td:nth-child(5),
 #chkTable tbody td:nth-child(7),
 #chkTable tbody td:last-child {text-align: center;}
+#chkTable tbody td:nth-child(6) {word-break: break-all;}
 #chkTable tbody td:nth-child(7) {word-break: keep-all;}
 /*#chkTable tbody td:nth-child(5) {word-break: break-word;}*/
 /*#chkTable tbody td:nth-child(4) {padding-left: 1em;}*/
 #chkTable tbody td:nth-child(6) {padding-left: 1em;}
 #chkTable p {margin-bottom: 0;}
+code {font-size: 100% !important;}
