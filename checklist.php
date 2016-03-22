@@ -4,7 +4,7 @@ session_start();
 
 // Directory define
 define('COMMON', 'inc/common/');
-define('MODAL', 'modals/');
+define('MODAL', 'inc/modals/');
 define('INC', 'inc/');
 define('CR', "\r\n");
 
@@ -174,6 +174,15 @@ $n = 1;
 						</thead>
 						<tbody>
 						<?php
+
+						// modal 불러오기
+						$modals = scandir(MODAL, 0);
+						for ($i = 2; $i < count($modals); $i++) {
+							$modalFiles = [];
+							include MODAL . $modals[$i];
+							$modalFiles = array_push($modalFiles, $modals[$i]);
+						}
+
 						function td($var) {
 							echo "<td>".$var."</td>".CR;
 						}
@@ -214,7 +223,7 @@ $n = 1;
 									$noti_date = date('Y.m.d', strtotime($get['date']));
 									echo "<td>".CR;
 									echo "<ul>".CR;
-									echo "<li><small>공지일: ".$noti_date."</small></li>".CR;
+									echo "<li>공지일: ".$noti_date."</li>".CR;
 									echo "</ul>".CR;
 									echo "</td>".CR;
 								} elseif (isset($get['date']) && isset($get['comment'])) {
@@ -226,7 +235,15 @@ $n = 1;
 									echo "</ul>".CR;
 									echo "</td>".CR;
 								}
-								td($get['example']);
+								// td($get['example']);
+								echo "<td>";
+								if(isset($get['example'])) {
+									echo "<a href='#".$get['example']."' data-toggle='modal'>보기</a>";
+								} else {
+									null;
+								}
+								echo "</td>".CR;
+
 								if(isset($get['wiki'])) {
 									echo "<td>";
 									echo "<a href='".$get['wiki']."' target='_blank'>보기</a>";
@@ -308,34 +325,56 @@ $n = 1;
 							// 네트워크
 							case ($network == '3g'):
 							case ($network == 'lte'):
+								$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '".$language."' AND category = '3G/LTE' AND 다국어 = 'Y'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
 								break;
+
 							case ($network == 'wifi'):
 								$sql = "SELECT * FROM Common WHERE language = '".$language."' AND category = 'Wi-Fi 전용' AND 다국어 = 'Y'";
 								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 								spread($result);
 								break;
 						}
-						switch (true) {
-							// 배터리
-							case ($battery == 'uni'):
-								$sql = "SELECT * FROM Common WHERE language = '".$language."' AND  category = '배터리 일체형' AND 다국어 = 'Y'";
-								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
-								spread($result);
+
+						switch ($battery) {// 배터리
+							case 'uni':
+								$temp = $conn->query("SELECT * FROM Common WHERE destination = '".$dest."' AND language = '".$language."' AND category = '일체형'");
+								if($temp->num_rows == 0) {
+									// $sql = "SELECT * FROM Common WHERE region = '".$region."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+									if ($dest == 'CIS') {
+										$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+										if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+										spread($result);
+									} else {
+										$sql = "SELECT * FROM Common WHERE region = '".$region."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+										if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+										spread($result);
+									}
+								} else {
+									$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+									if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+									spread($result);
+									$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '".$language."' AND  category = '일체형' AND 다국어 = 'Y'";
+									if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+									spread($result);
+								}
 								break;
-							case ($battery == 'sep'):
+							case 'sep':
 								break;
 						}
 
 						switch($book) {
+							case 'qsg_multi':
+								$sql = "SELECT * FROM Common WHERE category = '책 - QSG 합본'";
+								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
+								spread($result);
+
 							case 'qsg_single':
 								$sql = "SELECT * FROM Common WHERE category = '책 - QSG'";
 								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 								spread($result);
 
-							case 'qsg_multi':
-								$sql = "SELECT * FROM Common WHERE category = '책 - QSG 합본'";
-								if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
-								spread($result);
 								break;
 
 							case 'sim':

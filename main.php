@@ -79,7 +79,31 @@ function selector($array) {
 					<label for="language" class="col-sm-1 control-label">언어</label>
 					<div class="col-sm-3">
 						<select name="language" id="language" class="form-control">
-							<?php selector($language); ?>
+							<!-- <?php selector($language); ?> -->
+							<script>
+								var languages = ['English','Albanian','Arabic','Bulgarian','Chinese','Croatian','Czech','Danish','Dutch','Estonian','Farsi','Finnish','French','German','Greek','Hebrew','Hungarian','Indonesian','Italian','Kazakh','Latvian','Lithuanian','Macedonian','Norwegian','Polish','Portuguese','Romanian','Russian','Serbian','Slovak','Slovenian','Spanish','Swedish','Thai','Turkish','Ukrainian','Urdu','Uzbek','Vietnamese'];
+								var eu = ['English','Albanian','Bulgarian','Croatian','Czech','Danish','Dutch','Estonian','Finnish','French','German','Greek','Hungarian','Italian','Latvian','Lithuanian','Macedonian','Norwegian','Polish','Portuguese','Romanian','Serbian','Slovak','Slovenian','Spanish','Swedish'];
+								var cis = ['Kazakh','Russian','Ukrainian','Uzbek'];
+
+								var option = "";
+								function optList(array) {
+									for(i=0; i < array.length; i++) {
+										option = "<option id='" + array[i] + "'>" + array[i] + "</option>";
+									}
+								}
+								$('#dest').on('change', function() {
+									var value = $(this).val();
+									// alert(value);
+									if(value == 'EU') {
+										console.log(value);
+										// optList(eu);
+									} else if (value == 'CIS') {
+										console.log(value);
+									} else if (value == 'MEA') {
+										console.log(value);
+									}
+								})
+							</script>
 						</select>
 					</div>
 
@@ -140,8 +164,8 @@ function selector($array) {
 					<div class="col-sm-3">
 						<select name="book" id="book" class="form-control">
 							<option value="na">N/A</option>
-							<option value="qsg_single">QSG</option>
-							<option value="qsg_multi">QSG 합본</option>
+							<option value="qsg_single">Book형 QSG</option>
+							<option value="qsg_multi">합본 QSG</option>
 							<option value="sim">SS/DS 합본</option>
 							<option value="series">시리즈 합본</option>
 						</select>
