@@ -79,29 +79,48 @@ function selector($array) {
 					<label for="language" class="col-sm-1 control-label">언어</label>
 					<div class="col-sm-3">
 						<select name="language" id="language" class="form-control">
-							<!-- <?php selector($language); ?> -->
 							<script>
-								var languages = ['English','Albanian','Arabic','Bulgarian','Chinese','Croatian','Czech','Danish','Dutch','Estonian','Farsi','Finnish','French','German','Greek','Hebrew','Hungarian','Indonesian','Italian','Kazakh','Latvian','Lithuanian','Macedonian','Norwegian','Polish','Portuguese','Romanian','Russian','Serbian','Slovak','Slovenian','Spanish','Swedish','Thai','Turkish','Ukrainian','Urdu','Uzbek','Vietnamese'];
-								var eu = ['English','Albanian','Bulgarian','Croatian','Czech','Danish','Dutch','Estonian','Finnish','French','German','Greek','Hungarian','Italian','Latvian','Lithuanian','Macedonian','Norwegian','Polish','Portuguese','Romanian','Serbian','Slovak','Slovenian','Spanish','Swedish'];
-								var cis = ['Kazakh','Russian','Ukrainian','Uzbek'];
+							function getLangs(target) {
+								var EU = ['English','Albanian','Bulgarian','Croatian','Czech','Danish','Dutch','Estonian','Finnish','French','German','Greek','Hungarian','Italian','Latvian','Lithuanian','Macedonian','Norwegian','Polish','Portuguese','Romanian','Serbian','Slovak','Slovenian','Spanish','Swedish'];
+								var CIS = ['English', 'Kazakh','Russian','Ukrainian','Uzbek'];
+								var MEA = ['English','Arabic','Farsi','French','Hebrew','Turkish','Urdu'];
+								var SEA = ['English','Indonesian','Chinese','Thai','Vietnamese'];
+								var SWA = IND = AUS = NZL = ['English'];
+								var CHN = CMCC = CTC = CU = HK = TW = ['English','Chinese'];
+								var LTN = MEX = COL = ARG = ['English','Spanish'];
 
-								var option = "";
+								if (target == "EU") {return EU;}
+								else if (target == "CIS") {return CIS;}
+								else if (target == "MEA") {return MEA;}
+								else if (target == "SEA") {return SEA;}
+								else if (target == "SWA") {return SWA;}
+								else if (target == "IND") {return SWA;}
+								else if (target == "AUS") {return AUS;}
+								else if (target == "NZL") {return NZL;}
+								else if (target == "CHN") {return CHN;}
+								else if (target == "CMCC") {return CMCC;}
+								else if (target == "CTC") {return CTC;}
+								else if (target == "CU") {return CU;}
+								else if (target == "HK") {return HK;}
+								else if (target == "TW") {return TW;}
+								else if (target == "LTN") {return LTN;}
+								else if (target == "MEX") {return MEX;}
+								else if (target == "COL") {return COL;}
+								else if (target == "ARG") {return ARG;}
+								else {return null;}
+							}
+
 								function optList(array) {
-									for(i=0; i < array.length; i++) {
-										option = "<option id='" + array[i] + "'>" + array[i] + "</option>";
-									}
+									$('#language').empty();
+									jQuery.each(array, function(index, value) {
+										$('#language').append("<option>" + value + "</option>");
+									});
 								}
+
 								$('#dest').on('change', function() {
 									var value = $(this).val();
-									// alert(value);
-									if(value == 'EU') {
-										console.log(value);
-										// optList(eu);
-									} else if (value == 'CIS') {
-										console.log(value);
-									} else if (value == 'MEA') {
-										console.log(value);
-									}
+									var targetName = getLangs(value);
+									optList(targetName);
 								})
 							</script>
 						</select>

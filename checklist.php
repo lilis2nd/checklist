@@ -339,23 +339,23 @@ $n = 1;
 
 						switch ($battery) {// 배터리
 							case 'uni':
-								$temp = $conn->query("SELECT * FROM Common WHERE destination = '".$dest."' AND language = '".$language."' AND category = '일체형'");
+								$temp = $conn->query("SELECT * FROM Common WHERE type = '".$type."' AND  destination = '".$dest."' AND language = '".$language."' AND category = '일체형'");
 								if($temp->num_rows == 0) {
 									// $sql = "SELECT * FROM Common WHERE region = '".$region."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
 									if ($dest == 'CIS') {
-										$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+										$sql = "SELECT * FROM Common WHERE type = '".$type."' AND  destination = '".$dest."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
 										if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 										spread($result);
 									} else {
-										$sql = "SELECT * FROM Common WHERE region = '".$region."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+										$sql = "SELECT * FROM Common WHERE type = '".$type."' AND  region = '".$region."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
 										if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 										spread($result);
 									}
 								} else {
-									$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
+									$sql = "SELECT * FROM Common WHERE type = '".$type."' AND  destination = '".$dest."' AND language = '공통' AND  category = '일체형' AND 다국어 = 'Y'";
 									if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 									spread($result);
-									$sql = "SELECT * FROM Common WHERE destination = '".$dest."' AND language = '".$language."' AND  category = '일체형' AND 다국어 = 'Y'";
+									$sql = "SELECT * FROM Common WHERE type = '".$type."' AND  destination = '".$dest."' AND language = '".$language."' AND  category = '일체형' AND 다국어 = 'Y'";
 									if (!$result = $conn->query($sql)) {echo "sorry.".CR; echo "Errno:".$conn->errno.CR; echo "Error:".$conn->error.CR; exit; }
 									spread($result);
 								}
